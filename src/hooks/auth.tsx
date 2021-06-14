@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 
 interface SignInCredential {
@@ -13,8 +13,15 @@ interface SignInCredential {
   password: string;
 }
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+}
+
 interface AuthContextData {
-  user: object;
+  user: User;
   loading: boolean;
   signIn(credential: SignInCredential): Promise<void>;
   signOut(): void;
@@ -22,7 +29,7 @@ interface AuthContextData {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
